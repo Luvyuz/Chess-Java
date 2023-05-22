@@ -7,7 +7,6 @@ import Utils.PieceImages.Rank;
 public class King extends Piece {
 	private boolean hasMoved = false;
 	private boolean justCastled = false;
-	private boolean justMoved = false;
 	private Rook rook = null;
 	public static final int RANK = Rank.KING;
 	public King(int x, int y, boolean iswhite, Board board, int value){
@@ -118,5 +117,9 @@ public class King extends Piece {
     }
 	public void setMoved(boolean hasMoved){
 		this.hasMoved = hasMoved;
+	}
+	@Override
+	public int getRank(){
+		return RANK;
 	}
 }

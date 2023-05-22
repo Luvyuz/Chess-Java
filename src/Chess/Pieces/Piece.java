@@ -37,7 +37,7 @@ public abstract class Piece implements Cloneable {
 	}
 	//Tutti i pezzi devono possedere il metodo per controllare il loro movimento
 	public abstract boolean canMove(int x ,int y, Board board);
-
+	public abstract int getRank();
 	public void setGame(Game game){
 		this.game = game;
 	}

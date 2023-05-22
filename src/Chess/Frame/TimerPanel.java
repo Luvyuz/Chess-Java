@@ -42,37 +42,32 @@ public class TimerPanel extends JPanel{
         buttons = new ArrayList<CustomButton>();
         createButtons();
         addMouseListener(new MouseListener(this, game));
-        
     }
 
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-
         drawButtons(g);
     }
-    
-
-
-
+    //inizializzazione buttoni
     private void createButtons(){
         buttons.add(new CustomButton("OpponentImage", "/Chess/images/UserImg.png" ,5, 5, 34, 34,true));
         buttons.add(new CustomButton("PlayerImage", "/Chess/images/UserImg.png", 5, 728, 34, 34,true));
-        buttons.add(new CustomButton("undo", "/Chess/images/undo.png", 0, 450, 100, 60,true));
+        //buttons.add(new CustomButton("undo", "/Chess/images/undo.png", 0, 450, 100, 60,true));
         buttons.add(new CustomButton("btnNewGame", "/Chess/images/new_game.png", 125, 445, 200, 60,true));
         buttons.add(new CustomButton("Opponent", "/Chess/images/Opponent.png", 39, 5, 70, 40,true));
         buttons.add(new CustomButton("Player", "/Chess/images/Player.png", 39, 728, 70, 40,true));
     }
+    //disegno buttoni
     private void drawButtons(Graphics g){
-        for (CustomButton customButton : buttons) {
+        for (CustomButton customButton : buttons) 
             customButton.displayOnPanel(g);
-        }
     }
 
     public ArrayList<CustomButton> getButtons(){
         return buttons;
     }
-
+    //setta il timer sulla label
     public void setTimerPlayer(int min, int sec){
         lblTimerPlayer.setText(String.format("%02d:%02d\n", min, sec));
     }
@@ -80,17 +75,17 @@ public class TimerPanel extends JPanel{
     public void setTimerOpponent(int min, int sec){
         lblTimerOpponent.setText(String.format("%02d:%02d\n", min, sec));
     }
-
+    //fa partire il timer
     public void startTimer(boolean isWhite){
         if(isWhite)timerPlayer.startTimer();
         else timerOpponent.startTimer();
     }
-
+    //controlla il timer se è ancora attivo
     public boolean isTimerRunning(boolean isWhite){
         if(isWhite)return timerPlayer.isRunning();
         else return timerOpponent.isRunning();
     }
-
+    //ferma il timer
     public void stopTimer(boolean isWhite){
         if(isWhite)timerPlayer.stopTimer();
         else timerOpponent.stopTimer();

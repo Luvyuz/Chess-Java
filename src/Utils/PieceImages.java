@@ -10,6 +10,14 @@ public class PieceImages{
 		public static final int ROOK = 4;
 		public static final int PAWN = 5;
 	}
+	public static class Simbol{
+		public static String PAWN = "♟";
+		public static String ROOK = "♜";
+		public static String KNIGHT = "♞";
+		public static String BISHOP = "♝";
+		public static String QUEEN = "♛";
+		public static String KING = "♚";
+	}
 	public static final String CHESS_IMAGE = "/Chess/Images/Chess_Piece_576x192.png";
 	public static final int WHITE = 0;
 	public static final int BLACK = 1;

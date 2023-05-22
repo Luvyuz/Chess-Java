@@ -30,6 +30,7 @@ public class Board implements Cloneable{
 		this.game = game;
 	}
 	public void setPieceIntoBoard(int x, int y, Piece piece){
+		//aggiunge i pezzi nella matrice con i valori rispettivi del pezzo
 		if(piece != null){
 			grid[x][y] = piece.getValueInTheboard();
 			pieces[x][y] = piece;
@@ -135,6 +136,9 @@ public class Board implements Cloneable{
 	}
 	public Piece getLastPieceMoved(){
 		return lastPieceMoved;
+	}
+	public Stack<Move> getMoves(){
+		return lastMoves;
 	}
 	public Piece getPiece(int x,int y){
 		return pieces[x][y];

@@ -2,10 +2,8 @@ package Chess.Listener;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import javax.swing.event.MouseInputListener;
 
-import Chess.Frame.GameWindow;
 import Chess.Frame.TimerPanel;
 import Chess.Game.Game;
 import Utils.CustomButton;
@@ -35,11 +33,9 @@ public class MouseListener implements MouseInputListener {
                 case "btnNewGame":
                     new Game(game.getLanguage());
                     game.closeWindow();
-                    
                 break;
                 case "undo":
-                    game.getBoard().undoMove();
-
+                    //game.getBoard().undoMove();
                 break;
     
                 default: break;

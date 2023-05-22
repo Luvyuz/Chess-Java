@@ -88,4 +88,8 @@ public class Rook extends Piece{
 	public void setJustMoved(boolean justMoved){
 		this.justMoved = justMoved;
 	}
+	@Override
+	public int getRank(){
+		return RANK;
+	}
 }

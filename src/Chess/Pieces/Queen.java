@@ -87,4 +87,8 @@ public class Queen extends Piece {
 		}
 		return true;
 	}
+	@Override
+	public int getRank(){
+		return RANK;
+	}
 }

@@ -145,4 +145,8 @@ public class Pawn extends Piece {
 	public void setMoved2Squares(boolean moved2Squares){
 		this.moved2Squares = moved2Squares;
 	}
+	@Override
+	public int getRank(){
+		return RANK;
+	}
 }

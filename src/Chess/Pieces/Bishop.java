@@ -59,4 +59,8 @@ public class Bishop extends Piece {
 		}
 		return true;
 	}
+	@Override
+	public int getRank(){
+		return RANK;
+	}
 }

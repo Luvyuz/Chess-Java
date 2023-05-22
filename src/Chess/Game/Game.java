@@ -16,6 +16,7 @@ import Chess.Frame.GameWindow;
 import Chess.Frame.TimerPanel;
 import Chess.Pieces.*;
 import Chess.Timer.Timer;
+import Utils.LoadSave;
 import Utils.PieceImages;
 import Utils.SoundsManager;
 import Utils.SoundsManager.Sound;
@@ -40,6 +41,7 @@ public class Game{
 	private LinkedList<Piece> allPieces;
 	private LinkedList<Move> allPlayersMove;
 	private LinkedList<Move> allEnemysMove;
+	private boolean gameOver = false;
 	public Game(int language){
 		this.language = language;
 		initClasses();
@@ -57,7 +59,7 @@ public class Game{
 	public void initClasses(){
 		timerPanel = new TimerPanel(this);
 		gamePanel = new GamePanel(this);
-		gameWindow = new GameWindow(gamePanel, timerPanel );
+		gameWindow = new GameWindow(gamePanel, timerPanel);
 		board = new Board(this);
         wPieces = new LinkedList<Piece>();
         bPieces = new LinkedList<Piece>();
@@ -100,26 +102,33 @@ public class Game{
 	}
 	//cambio di turno
 	public void changeSide(){
-		whiteTurn = !whiteTurn;
-		//genera le mosse dell'avversario
-		generateEnemysMoves(board);
-		//genera le mosse del giocatore
-		generatePlayersTurnMoves(board);
-		//controlla le mosse legali
-		checkPlayersLegalMoves();
-		//controlla lo scacco matto
-		checkMate();
+		if(!gameOver){
+			whiteTurn = !whiteTurn;
+			updateTimer();
+			//genera le mosse dell'avversario
+			generateEnemysMoves(board);
+			//genera le mosse del giocatore
+			generatePlayersTurnMoves(board);
+			//controlla le mosse legali
+			checkPlayersLegalMoves();
+			//controlla lo scacco matto
+			checkMate();
+		}
 	}
+	//Viene usato per l'undo
 	public void changeSide(boolean turn){
-		whiteTurn = turn;
-		//genera le mosse dell'avversario
-		generateEnemysMoves(board);
-		//genera le mosse del giocatore
-		generatePlayersTurnMoves(board);
-		//controlla le mosse legali
-		checkPlayersLegalMoves();
-		//controlla lo scacco matto
-		checkMate();
+		if(!gameOver){
+			whiteTurn = !whiteTurn;
+			updateTimer();
+			//genera le mosse dell'avversario
+			generateEnemysMoves(board);
+			//genera le mosse del giocatore
+			generatePlayersTurnMoves(board);
+			//controlla le mosse legali
+			checkPlayersLegalMoves();
+			//controlla lo scacco matto
+			checkMate();
+		}
 	}
 /*
  * 
@@ -139,7 +148,7 @@ public class Game{
 	}
  */
 	//ritorna il valore che determina a chi appartiene il turno
-	public boolean isWhiteTurn() {
+	public boolean isWhiteTurn(){
 		return whiteTurn;
 	}
 
@@ -148,6 +157,21 @@ public class Game{
 			selectedPiece = board.getPiece(x, y);
 	}
 	//controlla lo scacco matto
+	public void timeOut(boolean isWhite){
+		switch(language){
+			case ENGLISH:
+				JOptionPane.showMessageDialog(null, "Time Out! " + (!isWhite ? "White" : "Black") + " wins!");
+				break;
+			case ITALIANO:
+				JOptionPane.showMessageDialog(null, "Tempo scaduto! " + (!isWhite ? "White" : "Black") + " wins!");
+			    break;
+			default:
+				JOptionPane.showMessageDialog(null, "Time Out! " + (!isWhite ? "White" : "Black") + " wins!");
+				break;
+		}
+		SoundsManager.playSound(Sound.GAMEOVER);
+		LoadSave.saveData(board.getMoves());
+	}
 	public void checkMate(){
 		switch(language){
 			case ENGLISH:
@@ -203,6 +227,8 @@ public class Game{
 				}
 				break;
 		}
+		gameOver = true;
+		LoadSave.saveData(board.getMoves());
 	}
 	public void checkPlayersLegalMoves() {
 		LinkedList<Piece> pieces = null;
@@ -273,10 +299,15 @@ public class Game{
 				tryToPromote(selectedPiece);
 				changeSide();
 				selectedPiece = null;
-				updateTimer();
 			}
 			drag = false;
 		}
+	}
+	public synchronized boolean isGameOver(){
+		return gameOver;
+	}
+	public synchronized void gameOver(){
+		gameOver = true;
 	}
 	//controlla se il re è sotto matto e lo evidenzia di rosso
 	public void drawKingInCheck(boolean isWhite, Graphics g, JPanel panel){
@@ -354,7 +385,7 @@ public class Game{
 				break;
 		}
 		board.addPromotedPieces(p);
-		System.out.println(p.toString());
+		//System.out.println(p.toString());
 		fillPieces();
 	}
 	//disegna sul pannello le mosse legali del pezzo selezionato
@@ -455,10 +486,10 @@ public class Game{
 	public void closeWindow(){
 		gameWindow.dispose();
 	}
-	public void setTimerPlayer(Chess.Timer.Timer timer){
+	public void setTimerPlayer(Timer timer){
 		this.timerPlayer = timer;
 	}
-	public void setTimerOpponent(Chess.Timer.Timer timer){
+	public void setTimerOpponent(Timer timer){
 		this.timerOpponents = timer;
 	}
 	public void updateTimer(){

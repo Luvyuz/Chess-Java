@@ -23,4 +23,8 @@ public class Knight extends Piece{
 			return true;
 		return false;
 	}
+	@Override
+	public int getRank(){
+		return RANK;
+	}
 }

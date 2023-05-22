@@ -14,9 +14,9 @@ public class GameWindow extends JFrame{
 	private TimerPanel timerPanel;
 	public GameWindow(GamePanel gamePanel, TimerPanel timerPanel ){
 		this.gamePanel = gamePanel;
-		setLayout(new BorderLayout());
 		this.timerPanel = timerPanel;
-		add(gamePanel ,BorderLayout.CENTER );
+		setLayout(new BorderLayout());
+		add(gamePanel ,BorderLayout.CENTER);
 		add(timerPanel, BorderLayout.EAST);
 		setTitle("Chess");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -21,6 +21,8 @@ public class Listener extends MouseAdapter{
     @Override
     public void mouseClicked(MouseEvent e){
         if(SwingUtilities.isLeftMouseButton(e)){
+            if(game.isGameOver())
+                return;
             int x = e.getX()/GameWindow.TILE_SIZE;
             int y = e.getY()/GameWindow.TILE_SIZE;
             game.drag = false;
