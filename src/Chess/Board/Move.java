@@ -104,7 +104,34 @@ public class Move implements Comparable<Move>{
 				move += "h";
 				break;
 		}
-		return move + yNew;
+        switch(yNew){
+			case 0:
+			    move += "8";
+				break;
+			case 1:
+				move += "7";
+				break;
+			case 2:
+				move += "6";
+				break;
+			case 3:
+				move += "5";
+				break;
+			case 4:
+				move += "4";
+				break;
+			case 5:
+				move += "3";
+				break;
+			case 6:
+				move += "2";
+				break;
+			case 7:
+				move += "1";
+				break;
+			
+		}
+		return move;
 	}
 	@Override
 	public String toString(){
